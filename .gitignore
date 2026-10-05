@@ -9,8 +9,15 @@ ENV/
 # =========================
 # Arquivos de dados
 # =========================
-data/
-*.bin
+data/*
+!data/logs/
+!data/logs/*.bin
+
+# Arquivos .bin de teste
+tests/voos_sinteticos/*.bin
+
+# Cache dos dados
+data/cache/
 
 # =========================
 # Cache do Python
