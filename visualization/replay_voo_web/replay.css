@@ -1,0 +1,60 @@
+:root {
+  --fundo: #ffffff;
+  --fundo2: #f0f2f6;
+  --texto: #31333f;
+  --texto2: #6b6f7b;
+  --borda: rgba(49, 51, 63, 0.15);
+  --destaque: #ff4b4b;
+  --fonte: "Source Sans Pro", "Segoe UI", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--fundo); color: var(--texto); font-family: var(--fonte); font-size: 14px; }
+#app { display: flex; flex-direction: column; gap: 10px; padding: 2px; }
+
+.linha-tempo {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px;
+  padding: 8px 10px; background: var(--fundo2); border-radius: 8px;
+}
+.controles { display: flex; align-items: center; gap: 6px; }
+.trilho { position: relative; flex: 1 1 260px; min-width: 160px; height: 26px; display: flex; align-items: center; }
+.trilho input[type=range] { width: 100%; accent-color: var(--destaque); cursor: pointer; position: relative; z-index: 2; background: transparent; }
+.marcas { position: absolute; left: 8px; right: 8px; top: 0; bottom: 0; pointer-events: none; z-index: 1; }
+.marca { position: absolute; top: 2px; width: 3px; height: 8px; border-radius: 2px; transform: translateX(-1px); }
+.marca.critico { background: #ff4b4b; }
+.marca.atencao { background: #ffa421; }
+.rotulo { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; color: var(--texto2); }
+.rotulo-tempo { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+
+select, button {
+  font: inherit; color: var(--texto); background: var(--fundo);
+  border: 1px solid var(--borda); border-radius: 6px; padding: 3px 8px;
+}
+button { cursor: pointer; }
+button:not(:disabled):hover { border-color: var(--destaque); color: var(--destaque); }
+.play { width: 46px; font-size: 16px; background: var(--destaque) !important; border-color: var(--destaque) !important; color: #fff !important; }
+
+.cena-box { position: relative; border: 1px solid var(--borda); border-radius: 8px; overflow: hidden; }
+#cena { height: 560px; background: #a8c8e8; }
+#cena canvas { display: block; }
+
+.hud {
+  position: absolute; top: 10px; left: 10px; padding: 8px 10px; border-radius: 8px;
+  background: rgba(0, 0, 0, 0.55); color: #fff; font-variant-numeric: tabular-nums;
+  font-size: 13px; line-height: 1.5; pointer-events: none; min-width: 180px;
+}
+.hud b { font-weight: 600; }
+.evento {
+  position: absolute; top: 10px; left: 50%; transform: translateX(-50%); max-width: 70%;
+  padding: 6px 12px; border-radius: 8px; color: #fff; font-weight: 600; pointer-events: none;
+}
+.evento.critico { background: rgba(220, 40, 40, 0.85); }
+.evento.atencao { background: rgba(230, 140, 20, 0.85); }
+.evento[hidden], .aviso[hidden] { display: none; }
+.opcoes {
+  position: absolute; right: 10px; bottom: 10px; display: flex; flex-wrap: wrap; gap: 6px 12px;
+  padding: 6px 10px; border-radius: 8px; background: rgba(255, 255, 255, 0.85); color: #31333f; font-size: 13px;
+}
+.opcoes select { color: #31333f; background: #fff; }
+.checkbox { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
+.aviso { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: var(--fundo); color: var(--texto2); }
+.dica { font-size: 12px; color: var(--texto2); }

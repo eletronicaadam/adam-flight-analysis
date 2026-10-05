@@ -1,0 +1,307 @@
+{
+  "arquivo": "impacto.bin",
+  "gerado_em": "2026-10-02T01:58:59",
+  "tempo": "segundos desde a primeira mensagem do log (mm:ss = minutos:segundos)",
+  "ficha": {
+    "nome": "Avião de teste (voos sintéticos)",
+    "massa_vazio_kg": 3.0,
+    "massa_decolagem_kg": 3.0,
+    "area_asa_m2": 0.6,
+    "envergadura_m": 1.8,
+    "bateria": {
+      "celulas": 4,
+      "capacidade_mah": 2200,
+      "tensao_minima_celula_v": 3.3
+    },
+    "controladora": {
+      "funcao": "piloto_automatico",
+      "orientacao": "normal",
+      "calibrada": true
+    },
+    "propulsao": {
+      "motor": null,
+      "helice": null,
+      "corrente_maxima_a": null
+    }
+  },
+  "log": {
+    "firmware": "ArduPlane V4.5.7 (abcdef12)",
+    "placa": "MatekH743",
+    "duracao_s": 120.0,
+    "tipos_de_mensagem": {
+      "ARSP": 1201,
+      "ATT": 3001,
+      "BARO": 4802,
+      "BAT": 2402,
+      "FMT": 10,
+      "GPS": 601,
+      "IMU": 12001,
+      "MODE": 3,
+      "MSG": 3,
+      "PARM": 8,
+      "VIBE": 2402
+    },
+    "parametros_importantes": {
+      "AHRS_ORIENTATION": 0.0,
+      "AHRS_EKF_TYPE": 3.0,
+      "ARSPD_TYPE": 0.0,
+      "ARSPD_USE": 0.0,
+      "BATT_MONITOR": 4.0,
+      "BATT_CAPACITY": 2200.0,
+      "THR_FAILSAFE": 1.0,
+      "LOG_BITMASK": 65535.0
+    }
+  },
+  "veredito_automatico": "problemas críticos",
+  "contagem_eventos": {
+    "critico": 1,
+    "atencao": 0,
+    "info": 4
+  },
+  "voos": [
+    {
+      "voo": {
+        "inicio_s": 21.0,
+        "fim_s": 82.4,
+        "duracao_s": 61.4,
+        "velocidade_max_ms": 18.0
+      },
+      "metricas": {
+        "bateria": {
+          "tensao_minima_v": 15.136,
+          "tensao_maxima_v": 16.3864,
+          "corrente_maxima_a": 65.5217,
+          "corrente_media_a": 16.7047,
+          "potencia_maxima_w": 991.7348,
+          "potencia_media_w": 270.6178,
+          "consumo_mah": 284.1307,
+          "consumo_wh": 4.6039
+        },
+        "gps": {
+          "duracao_s": 61.4,
+          "distancia_percorrida_m": 1075.3865,
+          "altitude_maxima_m": 40.68,
+          "velocidade_maxima_ms": 18.0,
+          "velocidade_media_ms": 17.3094,
+          "hdop_medio": 0.7,
+          "satelites_media": 14.0,
+          "percentual_fix_3d": 100.0
+        },
+        "altitude": {
+          "duracao_s": 61.4,
+          "altitude_maxima_m": 40.0384,
+          "taxa_subida_maxima_ms": 3.1257,
+          "taxa_descida_maxima_ms": 4.0948,
+          "fonte": "BARO"
+        },
+        "vibracao": {
+          "vibe_x_media": 11.0958,
+          "vibe_x_maxima": 90.0,
+          "vibe_y_media": 10.9275,
+          "vibe_y_maxima": 70.0,
+          "vibe_z_media": 21.6999,
+          "vibe_z_maxima": 120.0,
+          "clipping_total": 25
+        },
+        "altitude_relativa_solo": {
+          "maxima_barometro_m": 40.4884,
+          "maxima_gps_m": 40.76
+        }
+      }
+    }
+  ],
+  "bateria": {
+    "celulas": 4,
+    "celulas_fonte": "ficha",
+    "tensao_repouso_v": 16.73,
+    "tensao_min_voo_v": 16.14,
+    "queda_por_celula_v": 0.15,
+    "corrente_media_voo_a": 16.9,
+    "resistencia_interna_ohm": 0.02
+  },
+  "atitude": {
+    "fonte": "ATT",
+    "orientacao_usada": "normal",
+    "deteccao_orientacao": {
+      "orientacao": "normal",
+      "motivo": "eixo X do acelerômetro vs aceleração do GPS na decolagem",
+      "inicio_corrida_s": 20.2,
+      "fim_corrida_s": 21.6,
+      "aceleracao_gps_ms2": 3.2,
+      "variacao_acc_x_ms2": 3.19
+    }
+  },
+  "qualidade_dados": [],
+  "eventos": [
+    {
+      "codigo": "decolagem",
+      "categoria": "Fases do voo",
+      "gravidade": "info",
+      "inicio_s": 21.0,
+      "fim_s": 21.0,
+      "titulo": "Início do movimento (corrida/decolagem)",
+      "descricao": "Velocidade GPS passa de 3 m/s; trecho de 61 s, máx. 18 m/s.",
+      "evidencia": {
+        "inicio_s": 21.0,
+        "fim_s": 82.4,
+        "duracao_s": 61.4,
+        "velocidade_max_ms": 18.0
+      },
+      "fonte": "GPS.Spd",
+      "confianca": "alta"
+    },
+    {
+      "codigo": "vibracao_ok",
+      "categoria": "Vibração",
+      "gravidade": "info",
+      "inicio_s": 21.0,
+      "fim_s": 78.8,
+      "titulo": "Vibração em voo normal",
+      "descricao": "99% das leituras em voo abaixo de 22 m/s² (limite 30).",
+      "evidencia": {
+        "p99_ms2": 22.4
+      },
+      "fonte": "VIBE",
+      "confianca": "alta"
+    },
+    {
+      "codigo": "bateria_queda_sob_carga",
+      "categoria": "Bateria",
+      "gravidade": "info",
+      "inicio_s": 37.1,
+      "fim_s": 37.1,
+      "titulo": "Queda de tensão sob carga",
+      "descricao": "De 16.73 V em repouso para 16.14 V em voo: 0.15 V por célula com ~17 A.",
+      "evidencia": {
+        "tensao_repouso_v": 16.73,
+        "tensao_min_voo_v": 16.14,
+        "queda_por_celula_v": 0.15,
+        "corrente_media_voo_a": 16.9,
+        "resistencia_interna_ohm": 0.02
+      },
+      "fonte": "BAT.Volt, BAT.Curr",
+      "confianca": "alta"
+    },
+    {
+      "codigo": "vibracao_impacto",
+      "categoria": "Vibração",
+      "gravidade": "info",
+      "inicio_s": 78.9,
+      "fim_s": 82.4,
+      "titulo": "Pico de vibração no impacto",
+      "descricao": "120 m/s² e 25 clippings no momento da batida — consequência do impacto, não um problema do voo.",
+      "evidencia": {
+        "pico_ms2": 120.0
+      },
+      "fonte": "VIBE",
+      "confianca": "alta"
+    },
+    {
+      "codigo": "impacto",
+      "categoria": "Fases do voo",
+      "gravidade": "critico",
+      "inicio_s": 79.4,
+      "fim_s": 82.6,
+      "titulo": "Fim abrupto do voo (provável impacto)",
+      "descricao": "A velocidade caiu de 18 m/s para quase zero em 3.2 s (6 m/s²) — muito mais brusco que um pouso.",
+      "evidencia": {
+        "velocidade_antes_ms": 18.0,
+        "tempo_ate_parar_s": 3.2,
+        "desaceleracao_ms2": 5.6,
+        "pico_corrente_a": 65.5,
+        "corrente_antes_a": 6.1,
+        "pico_aceleracao_g": 25.4,
+        "pitch_apos_parar_graus": -35.0,
+        "roll_apos_parar_graus": 20.0
+      },
+      "fonte": "GPS.Spd, BAT.Curr, IMU",
+      "confianca": "alta"
+    }
+  ],
+  "limites_usados": {
+    "vibracao_atencao_ms2": {
+      "valor": 30.0,
+      "fonte": "ArduPilot: vibração acima de 30 m/s² prejudica a estimativa de posição/altitude"
+    },
+    "vibracao_critica_ms2": {
+      "valor": 60.0,
+      "fonte": "ArduPilot: acima de 60 m/s² o estimador pode falhar"
+    },
+    "vibracao_duracao_s": {
+      "valor": 1.0,
+      "fonte": "ignora picos isolados (toques, pouso)"
+    },
+    "clip_aumento": {
+      "valor": 1,
+      "fonte": "ArduPilot: qualquer clipping em voo indica acelerômetro saturado"
+    },
+    "celula_minima_v": {
+      "valor": 3.3,
+      "fonte": "ficha da aeronave (bateria.tensao_minima_celula_v)"
+    },
+    "queda_celula_atencao_v": {
+      "valor": 0.6,
+      "fonte": "queda sob carga acima de ~0,6 V/célula indica bateria cansada ou subdimensionada"
+    },
+    "corrente_duracao_s": {
+      "valor": 0.5,
+      "fonte": "corrente acima do limite por mais que isso"
+    },
+    "hdop_max": {
+      "valor": 2.0,
+      "fonte": "HDop acima de 2 = precisão horizontal ruim"
+    },
+    "satelites_min": {
+      "valor": 6,
+      "fonte": "menos de 6 satélites = posição pouco confiável"
+    },
+    "gps_salto_ms": {
+      "valor": 60.0,
+      "fonte": "salto de posição mais rápido que isso é erro de GPS"
+    },
+    "controle_erro_graus": {
+      "valor": 10.0,
+      "fonte": "atitude real longe da pedida pelo piloto automático"
+    },
+    "controle_duracao_s": {
+      "valor": 1.0,
+      "fonte": "erro de controle sustentado"
+    },
+    "roll_extremo_graus": {
+      "valor": 60.0,
+      "fonte": "inclinação lateral acima disso é manobra extrema para este tipo de avião"
+    },
+    "pitch_extremo_graus": {
+      "valor": 30.0,
+      "fonte": "pitch acima de ±30° é atitude extrema"
+    },
+    "angulo_ataque_alto_graus": {
+      "valor": 15.0,
+      "fonte": "pitch menos ângulo da trajetória acima disso: perto do estol na maioria dos perfis"
+    },
+    "angulo_ataque_duracao_s": {
+      "valor": 2.0,
+      "fonte": "sustentado"
+    },
+    "descida_ingreme_graus": {
+      "valor": -15.0,
+      "fonte": "trajetória mais inclinada que isso para baixo"
+    },
+    "descida_ingreme_duracao_s": {
+      "valor": 1.0,
+      "fonte": "sustentada"
+    },
+    "impacto_desaceleracao_ms2": {
+      "valor": 5.0,
+      "fonte": "parada mais brusca que isso no fim do voo não é pouso normal"
+    },
+    "divergencia_altitude_m": {
+      "valor": 5.0,
+      "fonte": "barômetro e GPS discordando mais que isso em voo"
+    },
+    "velocidade_voo_ms": {
+      "valor": 3.0,
+      "fonte": "acima disso o avião está em movimento (corrida ou voo)"
+    }
+  }
+}

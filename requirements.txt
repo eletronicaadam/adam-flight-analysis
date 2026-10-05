@@ -1,0 +1,7 @@
+pymavlink
+numpy
+pandas
+plotly
+streamlit
+matplotlib
+reportlab

@@ -1,0 +1,166 @@
+:root {
+  --fundo: #ffffff;
+  --fundo2: #f0f2f6;
+  --texto: #31333f;
+  --texto2: #6b6f7b;
+  --borda: rgba(49, 51, 63, 0.15);
+  --destaque: #ff4b4b;
+  --fonte: "Source Sans Pro", "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--fonte);
+  font-size: 14px;
+}
+
+#app { display: flex; flex-direction: column; gap: 10px; padding: 2px; }
+
+/* ---- Valores instantâneos ---- */
+.valores {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(134px, 1fr));
+  gap: 8px;
+}
+.valor {
+  background: var(--fundo2);
+  border-radius: 8px;
+  padding: 6px 10px;
+  min-width: 0;
+}
+.valor .nome {
+  font-size: 12px;
+  color: var(--texto2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.valor .numero {
+  font-size: 19px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.valor .extra { font-size: 12px; color: var(--texto2); font-variant-numeric: tabular-nums; }
+
+/* ---- Mapa + gráficos ---- */
+.principal {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 10px;
+}
+@media (max-width: 900px) {
+  .principal { grid-template-columns: minmax(0, 1fr); }
+}
+.principal.sem-mapa { grid-template-columns: minmax(0, 1fr); }
+.mapa-box[hidden] { display: none; }
+
+.mapa-box, .graficos-box {
+  position: relative;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.mapa-area { position: relative; }
+#mapa { height: 560px; background: var(--fundo2); }
+.barra a[hidden] { display: none; }
+#graficos { height: 600px; }
+
+.barra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+  padding: 6px 10px;
+  border-top: 1px solid var(--borda);
+  font-size: 13px;
+}
+.barra select { margin-left: 4px; }
+.barra a { color: var(--destaque); text-decoration: none; margin-left: auto; }
+.barra a:hover { text-decoration: underline; }
+.checkbox { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
+
+.legenda { display: inline-flex; align-items: center; gap: 6px; color: var(--texto2); font-variant-numeric: tabular-nums; }
+.legenda .barra-cor { width: 90px; height: 8px; border-radius: 4px; }
+
+select, button {
+  font: inherit;
+  color: var(--texto);
+  background: var(--fundo);
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+  padding: 3px 8px;
+}
+button { cursor: pointer; }
+button:disabled { opacity: 0.5; cursor: default; }
+button:not(:disabled):hover { border-color: var(--destaque); color: var(--destaque); }
+
+.aviso {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--texto2);
+  background: var(--fundo);
+  z-index: 500;
+  pointer-events: none;
+}
+.aviso[hidden] { display: none; }
+
+/* Linha vertical do cursor sobre os gráficos: é um div posicionado por
+   CSS (muito mais barato que redesenhar o gráfico a cada movimento). */
+.cursor {
+  position: absolute;
+  width: 0;
+  border-left: 1.5px solid var(--destaque);
+  pointer-events: none;
+  will-change: transform;
+  z-index: 10;
+}
+.cursor[hidden] { display: none; }
+
+/* ---- Barra de tempo ---- */
+.linha-tempo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 8px 10px;
+  background: var(--fundo2);
+  border-radius: 8px;
+}
+.controles { display: flex; align-items: center; gap: 6px; }
+.linha-tempo input[type=range] {
+  flex: 1 1 260px;
+  min-width: 160px;
+  height: 22px;
+  accent-color: var(--destaque);
+  cursor: pointer;
+}
+.play {
+  width: 46px;
+  font-size: 16px;
+  background: var(--destaque) !important;
+  border-color: var(--destaque) !important;
+  color: #fff !important;
+}
+.play:hover { filter: brightness(1.1); }
+.rotulo-velocidade { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; color: var(--texto2); }
+.rotulo-tempo { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+.dica { font-size: 12px; color: var(--texto2); }
+
+/* ---- Marcador da aeronave ---- */
+.aeronave { background: none; border: none; }
+.aeronave svg {
+  display: block;
+  transform-origin: 50% 50%;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.8));
+}

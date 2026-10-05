@@ -1,0 +1,32 @@
+# Ficha da aeronave -- dados físicos do avião usados pelas análises.
+# Valores marcados "lido do log" vieram dos parâmetros do ArduPilot do voo
+# 2026-09-30 16-35-24; confirme com a equipe.
+
+nome = "Adam"
+massa_vazio_kg = 5.0          # sem carga útil
+massa_decolagem_kg = 5.0      # neste voo (pode mudar por voo)
+area_asa_m2 = 1.118
+envergadura_m = 2.75
+
+[bateria]
+celulas = 6                   # lido do log: ~25,2 V carregada -> 6S (confirmar)
+capacidade_mah = 3300         # lido do log: BATT_CAPACITY (confirmar)
+tensao_minima_celula_v = 3.3  # abaixo disso: alerta
+
+[controladora]
+# "registrador": o receptor vai direto nos servos/ESC e a controladora só
+# grava os sensores (modos de voo e failsafes no log NÃO comandam o avião).
+# "piloto_automatico": a controladora comanda os servos.
+funcao = "registrador"
+# Como a placa está montada em relação ao avião. No voo 2026-09-30 estava
+# girada 180° (seta para trás): na decolagem a aceleração aparece negativa
+# no eixo X. Opções: "normal", "invertida_180" (seta para trás).
+orientacao = "invertida_180"
+# false = acelerômetro/nível não calibrados com a placa instalada no avião;
+# a atitude registrada (roll/pitch) não é confiável.
+calibrada = false
+
+[propulsao]
+motor = ""                    # preencher
+helice = ""                   # ex: "13x6.5" -- preencher
+corrente_maxima_a = 0         # limite do ESC/motor -- preencher

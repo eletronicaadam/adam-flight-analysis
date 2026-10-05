@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Replay 3D</title>
+  <link rel="stylesheet" href="replay.css">
+  <!-- three.js servido localmente (funciona sem internet) -->
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three.module.js" } }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <div class="linha-tempo">
+      <div class="controles">
+        <button id="ir-inicio" type="button" title="Voltar ao início (Home)">⏮</button>
+        <button id="voltar" type="button" title="Voltar 10 s">−10 s</button>
+        <button id="play" class="play" type="button" title="Reproduzir / pausar (espaço)">▶</button>
+        <button id="avancar" type="button" title="Avançar 10 s">+10 s</button>
+        <label class="rotulo">Velocidade
+          <select id="velocidade">
+            <option value="0.25">0,25×</option>
+            <option value="0.5">0,5×</option>
+            <option value="1" selected>1×</option>
+            <option value="2">2×</option>
+            <option value="5">5×</option>
+            <option value="10">10×</option>
+          </select>
+        </label>
+      </div>
+      <div class="trilho">
+        <div id="marcas" class="marcas"></div>
+        <input id="tempo" type="range" min="0" max="1" step="0.05" value="0" aria-label="Instante do voo">
+      </div>
+      <span id="rotulo-tempo" class="rotulo-tempo">0:00.0 / 0:00.0</span>
+    </div>
+
+    <div class="cena-box">
+      <div id="cena"></div>
+      <div id="hud" class="hud"></div>
+      <div id="evento" class="evento" hidden></div>
+      <div id="vazio" class="aviso" hidden>Sem posição GPS neste trecho.</div>
+      <div class="opcoes">
+        <label>Câmera
+          <select id="camera">
+            <option value="perseguicao">Perseguição</option>
+            <option value="livre">Livre (arraste para girar)</option>
+            <option value="geral">Visão geral</option>
+          </select>
+        </label>
+        <label>Tamanho do avião
+          <select id="escala">
+            <option value="1">real</option>
+            <option value="3">3×</option>
+            <option value="6" selected>6×</option>
+            <option value="12">12×</option>
+          </select>
+        </label>
+        <label>Exagero vertical
+          <select id="exagero">
+            <option value="1">1× (real)</option>
+            <option value="2">2×</option>
+            <option value="3" selected>3×</option>
+            <option value="5">5×</option>
+          </select>
+        </label>
+        <label class="checkbox"><input type="checkbox" id="sombra" checked> Sombra no solo</label>
+      </div>
+    </div>
+    <div id="legenda" class="dica"></div>
+  </div>
+  <script type="module" src="replay.js"></script>
+</body>
+</html>

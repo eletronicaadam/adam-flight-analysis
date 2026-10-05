@@ -1,0 +1,23 @@
+# Ficha da aeronave de teste -- usada com os voos sintéticos gerados por
+# tests/gerar_voo_sintetico.py (avião de 3 kg, bateria 4S 2200 mAh).
+
+nome = "Avião de teste (voos sintéticos)"
+massa_vazio_kg = 3.0
+massa_decolagem_kg = 3.0
+area_asa_m2 = 0.6
+envergadura_m = 1.8
+
+[bateria]
+celulas = 4
+capacidade_mah = 2200
+tensao_minima_celula_v = 3.3
+
+[controladora]
+funcao = "piloto_automatico"
+orientacao = "normal"
+calibrada = true
+
+[propulsao]
+motor = ""
+helice = ""
+corrente_maxima_a = 0

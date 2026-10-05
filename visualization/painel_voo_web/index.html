@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Painel de voo</title>
+  <link rel="stylesheet" href="vendor/leaflet.css">
+  <link rel="stylesheet" href="painel.css">
+  <script src="vendor/leaflet.js"></script>
+  <script src="vendor/plotly.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div id="valores" class="valores" aria-live="off"></div>
+
+    <!-- Barra de tempo: controla o instante mostrado em todo o painel -->
+    <div class="linha-tempo">
+      <div class="controles">
+        <button id="ir-inicio" type="button" title="Voltar ao início do trecho (Home)">⏮</button>
+        <button id="voltar" type="button" title="Voltar 10 s (Shift + ←)">−10 s</button>
+        <button id="play" class="play" type="button" title="Reproduzir / pausar (barra de espaço)">▶</button>
+        <button id="avancar" type="button" title="Avançar 10 s (Shift + →)">+10 s</button>
+        <label class="rotulo-velocidade" title="Velocidade da reprodução">Velocidade
+          <select id="velocidade">
+            <option value="0.25">0,25×</option>
+            <option value="0.5">0,5×</option>
+            <option value="1" selected>1×</option>
+            <option value="2">2×</option>
+            <option value="5">5×</option>
+            <option value="10">10×</option>
+            <option value="30">30×</option>
+          </select>
+        </label>
+      </div>
+      <input id="tempo" type="range" min="0" max="1" step="0.1" value="0" aria-label="Instante do voo">
+      <span id="rotulo-tempo" class="rotulo-tempo">0:00.0 / 0:00.0</span>
+      <button id="usar-zoom" type="button" disabled
+              title="Recalcula as métricas só para o trecho visível nos gráficos">Analisar trecho do zoom</button>
+    </div>
+
+    <div class="principal">
+      <div class="mapa-box">
+        <div class="mapa-area">
+          <div id="mapa"></div>
+          <div id="mapa-vazio" class="aviso" hidden>Sem GPS com fix neste trecho.</div>
+        </div>
+        <div class="barra">
+          <label>Cor do trajeto
+            <select id="cor-trajeto">
+              <option value="vel">Velocidade</option>
+              <option value="alt">Altitude</option>
+              <option value="pot">Potência</option>
+              <option value="nenhuma">Uma cor</option>
+            </select>
+          </label>
+          <span id="legenda" class="legenda"></span>
+          <label class="checkbox"><input type="checkbox" id="seguir"> Seguir aeronave</label>
+          <a id="link-gmaps" href="#" target="_blank" rel="noopener">Abrir posição no Google Maps ↗</a>
+        </div>
+      </div>
+
+      <div class="graficos-box">
+        <div id="graficos"></div>
+        <div id="cursor" class="cursor" hidden></div>
+        <div id="graficos-vazio" class="aviso" hidden>Sem dados de velocidade, altitude ou bateria neste trecho.</div>
+      </div>
+    </div>
+
+    <div class="dica">Use a barra de tempo ou passe o mouse nos gráficos/trajeto para ver os valores de cada instante.
+      Arraste nos gráficos para dar zoom (a reprodução fica dentro do zoom); clique duas vezes para voltar.
+      Teclado: espaço = reproduzir/pausar · ← → = 1 s · Shift + ← → = 10 s · Home = início.</div>
+  </div>
+  <script src="painel.js"></script>
+</body>
+</html>

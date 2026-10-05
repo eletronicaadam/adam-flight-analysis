@@ -1,0 +1,37 @@
+import config
+import parser
+
+arquivos_bin = list(config.PASTA_LOGS.glob("*.bin"))
+if not arquivos_bin:
+    raise SystemExit(f"Nenhum arquivo .bin encontrado em {config.PASTA_LOGS}")
+
+dados = parser.ler_log(arquivos_bin[0])
+if "VIBE" not in dados:
+    raise SystemExit(f"{arquivos_bin[0].name} não tem mensagens VIBE.")
+
+vibe = dados["VIBE"]
+print("Colunas encontradas em VIBE:")
+print(list(vibe.columns))
+print()
+print(vibe.head().to_string())
+
+if "IMU" not in vibe.columns:
+    # Firmware antigo: sem coluna IMU, contadores Clip0/Clip1/Clip2.
+    print()
+    print("Log sem coluna IMU (firmware antigo). Estatísticas gerais:")
+    print(vibe[["VibeX", "VibeY", "VibeZ"]].describe().to_string())
+    colunas_clip = [c for c in vibe.columns if c.startswith("Clip")]
+    print()
+    print("Último valor de cada contador de Clip:")
+    print(vibe[colunas_clip].iloc[-1])
+    raise SystemExit
+
+print()
+print("Instâncias de IMU presentes:")
+print(vibe["IMU"].value_counts())
+print()
+print("Estatísticas de VibeX/Y/Z por instância de IMU:")
+print(vibe.groupby("IMU")[["VibeX", "VibeY", "VibeZ"]].describe().to_string())
+print()
+print("Soma total de Clip (todas as instâncias, último valor por IMU):")
+print(vibe.groupby("IMU")["Clip"].last())
