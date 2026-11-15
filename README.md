@@ -624,8 +624,14 @@ npm run build    # gera web/dist
 Deploy: importe o repositório na Vercel; o `vercel.json` da raiz já define o
 build (`web/`) e a pasta publicada (`web/dist`).
 
-Conferência com o Python (precisa do `.venv` com o `requirements.txt`):
-`web/scripts/resumo_log.py` × `resumo-log.ts` (parser) e `voo_trecho.py` ×
-`voo-trecho.ts` (aba Voo), `dossie_py.py` × `dossie.ts` (eventos e dossiê) e
-`abas_py.py` × `abas.ts` (Saúde, Vibração, Aerodinâmica, Replay, Explorador)
-imprimem o mesmo JSON para comparar.
+Conferência com o Python (precisa do `.venv` com o `requirements.txt` e do
+`npm install` em `web/`):
+
+```powershell
+.venv\Scripts\python web/scripts/validar.py            # voos sintéticos de tests/ e logs de data/logs/
+.venv\Scripts\python web/scripts/validar.py voo.bin    # só os logs dados
+```
+
+Para cada log, roda o Python e o site e compara o resultado: parser, aba Voo, dossiê
+(eventos, voos, métricas) e as abas Saúde, Vibração, Aerodinâmica, Replay 3D e
+Explorador. Rode depois de mudar uma análise de um lado, para manter os dois iguais.
