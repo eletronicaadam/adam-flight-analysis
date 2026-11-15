@@ -64,3 +64,8 @@ export const mensagensDoTrecho = (a: Args<"mensagens">) => consultar<MensagemTex
 export const eventosDoLog = () => consultar<Omit<ResultadoEventos, "atitude_serie">, "eventos">("eventos", {});
 export const dossieDoLog = () => consultar<Dossie, "dossie">("dossie", {});
 export const historicoDoLog = () => consultar<import("./lib/historico").RegistroVoo[], "historico">("historico", {});
+export const dadosDoRelatorio = (a: Args<"relatorio">) =>
+  consultar<import("./lib/relatorio").DadosRelatorio, "relatorio">("relatorio", a);
+export const csvResumoDoTrecho = (a: Args<"csvResumo">) => consultar<string, "csvResumo">("csvResumo", a);
+export const csvEventosDoTrecho = (a: Args<"csvEventos">) => consultar<string, "csvEventos">("csvEventos", a);
+export const zipDoTrecho = (a: Args<"zipTrecho">) => consultar<Uint8Array, "zipTrecho">("zipTrecho", a);

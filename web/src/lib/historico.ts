@@ -33,7 +33,7 @@ const SEGUNDOS_GPS_UTC = 18; // segundos bissextos entre GPS e UTC (desde 2017)
 const EPOCA_GPS_MS = Date.UTC(1980, 0, 6);
 
 /** Data UTC (ISO) do primeiro fix GPS a partir de `inicio` (s desde o início do log). */
-function dataGps(dados: Log, origem: number, inicio: number): string | null {
+export function dataGps(dados: Log, origem: number, inicio: number): string | null {
   const gps = gpsValido(dados);
   if (!gps || !gps.num.GWk || !gps.num.GMS) return null;
   const t = col(gps, "TimeUS"), wk = gps.num.GWk, ms = gps.num.GMS;

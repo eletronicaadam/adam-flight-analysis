@@ -608,6 +608,12 @@ veredito e eventos), com as mesmas colunas `categoria_chave` do
 `historico_voos.csv` do Python. Dá para importar o CSV do `exportar_csv.py`, exportar
 o histórico em CSV (para outro computador) e comparar 2 ou mais voos lado a lado.
 
+**Exportar** (barra lateral, vale para o trecho escolhido): relatório PDF (veredito,
+eventos, o que não é confiável, métricas, gráficos e trajeto — gerado no navegador),
+resumo do trecho em CSV (colunas do `historico_voos.csv`), eventos em CSV, todas as
+mensagens do trecho em ZIP (um CSV por tipo, como o `exportar_csv.py`) e o dossiê JSON.
+`web/scripts/relatorio.ts` gera os mesmos arquivos pela linha de comando.
+
 ```powershell
 cd web
 npm install

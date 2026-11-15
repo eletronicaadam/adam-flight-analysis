@@ -9,6 +9,8 @@ import { resumirVoo, type Resumo } from "./analise/resumo";
 import type { Ficha } from "./ficha";
 import { gerarDossie, type Dossie } from "./analise/dossie";
 import { registrosDoLog, type RegistroVoo } from "./historico";
+import { csvEventos, csvResumo, csvsDoTrecho, dadosRelatorio, eventosDoTrecho, veredito, type DadosRelatorio } from "./relatorio";
+import { zipar } from "./zip";
 import { detectar, type ResultadoEventos } from "./analise/eventos";
 import { lotesBatchSampler, type Lote } from "./analise/espectro";
 import { mensagensDoTrecho, prepararSaude } from "./abas/saude";
@@ -156,6 +158,25 @@ export class Sessao {
   mensagens(inicio: number, fim: number) { return mensagensDoTrecho(this.completo, this.origem, inicio, fim); }
 
   dossie(ficha: Ficha): Dossie { return gerarDossie(this.completo, ficha, this.info.nome); }
+
+  relatorio(inicio: number, fim: number, ficha: Ficha): DadosRelatorio {
+    return dadosRelatorio(this.completo, this.origem, inicio, fim, ficha, this.voo(inicio, fim), this.eventos(ficha),
+      this.info.nome, this.info.tamanho, this.info.veiculo, this.info.duracao);
+  }
+
+  csvResumo(inicio: number, fim: number, ficha: Ficha): string {
+    const v = veredito(eventosDoTrecho(this.eventos(ficha).eventos, inicio, fim));
+    return csvResumo(this.info.nome, inicio, fim, this.voo(inicio, fim).resumo, v);
+  }
+
+  csvEventos(inicio: number, fim: number, ficha: Ficha): string {
+    return csvEventos(eventosDoTrecho(this.eventos(ficha).eventos, inicio, fim));
+  }
+
+  /** Todas as mensagens do trecho, um CSV por tipo, num .zip. */
+  zipTrecho(inicio: number, fim: number): Uint8Array {
+    return zipar(csvsDoTrecho(this.completo, this.origem, inicio, fim));
+  }
 
   historico(ficha: Ficha): RegistroVoo[] {
     return registrosDoLog(this.completo, this.eventos(ficha), this.info.nome, this.info.tamanho);

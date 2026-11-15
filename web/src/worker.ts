@@ -26,7 +26,11 @@ export type Pedido =
   | { tipo: "mensagens"; inicio: number; fim: number }
   | { tipo: "eventos" }
   | { tipo: "dossie" }
-  | { tipo: "historico" };
+  | { tipo: "historico" }
+  | { tipo: "relatorio"; inicio: number; fim: number }
+  | { tipo: "csvResumo"; inicio: number; fim: number }
+  | { tipo: "csvEventos"; inicio: number; fim: number }
+  | { tipo: "zipTrecho"; inicio: number; fim: number };
 
 let sessao: Sessao | null = null;
 let ficha: Ficha = fichaDoToml(null);
@@ -65,6 +69,10 @@ async function atender(p: Pedido, progresso: (f: number) => void): Promise<unkno
     }
     case "dossie": return exigirSessao().dossie(ficha);
     case "historico": return exigirSessao().historico(ficha);
+    case "relatorio": return exigirSessao().relatorio(p.inicio, p.fim, ficha);
+    case "csvResumo": return exigirSessao().csvResumo(p.inicio, p.fim, ficha);
+    case "csvEventos": return exigirSessao().csvEventos(p.inicio, p.fim, ficha);
+    case "zipTrecho": return exigirSessao().zipTrecho(p.inicio, p.fim);
   }
 }
 

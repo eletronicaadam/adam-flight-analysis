@@ -3,13 +3,13 @@
  * navegação das abas, como no dashboard.py do Streamlit.
  */
 import { useCallback, useEffect, useRef, useState } from "react";
-import { abrirLog, dossieDoLog, historicoDoLog } from "./cliente";
+import { abrirLog, historicoDoLog } from "./cliente";
 import { useHistorico } from "./historicoLocal";
 import { PaginaHistorico } from "./paginas/Historico";
 import { PaginaComparacao } from "./paginas/Comparacao";
 import type { InfoLog } from "./lib/sessao";
 import type { Ficha } from "./lib/ficha";
-import { baixarArquivo, mmss } from "./formato";
+import { mmss } from "./formato";
 import { AbaVoo } from "./abas/Voo";
 import { AbaExplorador } from "./abas/Explorador";
 import { AbaAerodinamica } from "./abas/Aerodinamica";
@@ -17,6 +17,7 @@ import { AbaReplay } from "./abas/Replay";
 import { AbaSaude } from "./abas/Saude";
 import { AbaVibracao } from "./abas/Vibracao";
 import { FichaAeronave } from "./componentes/FichaAeronave";
+import { Exportar } from "./componentes/Exportar";
 import type { PropsAba } from "./componentes/comum";
 import { SeletorTrecho, trechoValido } from "./componentes/SeletorTrecho";
 
@@ -44,7 +45,6 @@ export function App() {
   const [arrastando, setArrastando] = useState(false);
   const [ficha, setFicha] = useState<Ficha | null>(null);
   const [versaoFicha, setVersaoFicha] = useState(0);
-  const [gerandoDossie, setGerandoDossie] = useState(false);
   const aoMudarFicha = useCallback((f: Ficha) => { setFicha(f); setVersaoFicha((v) => v + 1); }, []);
   const entrada = useRef<HTMLInputElement>(null);
 
@@ -139,24 +139,6 @@ export function App() {
           <p className="nota">O log é lido no seu navegador: o arquivo não é enviado para nenhum servidor.</p>
         </section>
 
-        {info && (
-          <section className="bloco">
-            <h2>Dossiê do voo</h2>
-            <p className="nota">Eventos de segurança, métricas e o que não é confiável no log inteiro, em JSON (o mesmo
-              do <code>analysis/dossie.py</code>, para o agente analista-voo).</p>
-            <button type="button" className="secundario" disabled={gerandoDossie} onClick={async () => {
-              setGerandoDossie(true);
-              try {
-                const d = await dossieDoLog();
-                baixarArquivo(JSON.stringify(d, null, 2), `${info.nome.replace(/.bin$/i, "")}.json`, "application/json");
-              } catch (e) {
-                setErro(`Não foi possível gerar o dossiê: ${e instanceof Error ? e.message : e}`);
-              } finally {
-                setGerandoDossie(false);
-              }
-            }}>{gerandoDossie ? "Gerando…" : "Baixar dossiê (JSON)"}</button>
-          </section>
-        )}
         <FichaAeronave ficha={ficha} onFicha={aoMudarFicha} />
 
         {info && (
@@ -169,6 +151,7 @@ export function App() {
             onAplicar={setTrecho}
           />
         )}
+        {info && <Exportar info={info} trecho={trecho} />}
       </aside>
 
       <main className="conteudo">
