@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.vercel/
+# Copiados de visualization/ a cada build (scripts/copiar-paineis.mjs)
+public/painel_voo_web/
+public/replay_voo_web/
+*.tsbuildinfo

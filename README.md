@@ -582,3 +582,44 @@ As mudanças são registradas aqui, da mais recente para a mais antiga.
 - `taxa_descida_maxima_ms` mostrava a menor taxa de subida como se fosse uma
   descida. Por exemplo, um voo que só subiu aparecia com descida de 1 m/s. Agora
   vale 0 quando não houve descida, e o mesmo vale para a subida.
+
+## Site (Vercel)
+
+A pasta `web/` tem a versão web do dashboard, que roda **inteira no navegador**:
+o `.bin` é lido e analisado no computador de quem abre o site (num Web Worker),
+sem enviar o arquivo para servidor nenhum. Por isso funciona na Vercel com logs
+de qualquer tamanho (as funções da Vercel aceitam no máximo 4,5 MB por envio).
+
+- `web/src/lib/dataflash.ts` — leitor do `.bin` (mesmos números do `parser.py`/pymavlink)
+- `web/src/lib/analise/` — porta de `analysis/` (eventos, dossiê, atitude, espectro, aerodinâmica, resumo)
+- `web/src/lib/abas/` — cálculos de cada aba (o `_preparar` de `visualization/abas/`)
+- `web/src/lib/dadosVoo.ts` — porta do `dados_voo.py`; `web/src/lib/ficha.ts` lê a ficha (`aeronave.toml`)
+- Os painéis `visualization/painel_voo_web` e `replay_voo_web` são os mesmos do
+  Streamlit: o build copia essas pastas para `web/public/`.
+
+Todas as abas do Streamlit estão no site (Voo, Explorador, Aerodinâmica, Replay 3D,
+Saúde do sistema e Vibração), mais o download do **dossiê do voo** (JSON) e um
+editor da **ficha da aeronave** (mesmo formato do `aeronave.toml`; a versão
+editada fica guardada no navegador de quem editou).
+
+**Histórico e comparação** (páginas na barra lateral): cada log aberto entra no
+histórico deste navegador, uma linha por voo detectado (métricas do voo, data GPS,
+veredito e eventos), com as mesmas colunas `categoria_chave` do
+`historico_voos.csv` do Python. Dá para importar o CSV do `exportar_csv.py`, exportar
+o histórico em CSV (para outro computador) e comparar 2 ou mais voos lado a lado.
+
+```powershell
+cd web
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # gera web/dist
+```
+
+Deploy: importe o repositório na Vercel; o `vercel.json` da raiz já define o
+build (`web/`) e a pasta publicada (`web/dist`).
+
+Conferência com o Python (precisa do `.venv` com o `requirements.txt`):
+`web/scripts/resumo_log.py` × `resumo-log.ts` (parser) e `voo_trecho.py` ×
+`voo-trecho.ts` (aba Voo), `dossie_py.py` × `dossie.ts` (eventos e dossiê) e
+`abas_py.py` × `abas.ts` (Saúde, Vibração, Aerodinâmica, Replay, Explorador)
+imprimem o mesmo JSON para comparar.

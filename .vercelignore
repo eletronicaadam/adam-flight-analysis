@@ -1,0 +1,5 @@
+# O site só precisa de web/ e dos painéis em visualization/*_web.
+data/
+tests/voos_sinteticos/*.bin
+.venv/
+venv/
